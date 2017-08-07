@@ -12,7 +12,9 @@ app.set('view engine', 'html');
 app.engine('html', nunjucks.render);
 nunjucks.configure('views', { noCache: true });
 
-models.db.sync({force: true})
+
+// { force: true }
+models.db.sync()
 .then(function () {
     app.listen(3000, function () {
         console.log('Server listening on port 3000');
