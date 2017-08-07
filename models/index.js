@@ -3,14 +3,14 @@ var db = new Sequelize('postgres://localhost:5432/wikistack');
 
 var Page = db.define('page', {
     title: { type: Sequelize.STRING, allowNull: false },
-    urlTitle: { type: Sequelize.STRING, allowNull: false },
+    urlTitle: { type: Sequelize.STRING, allowNull: false, get() {
+      const title = this.getDataValue('urlTitle');
+      return '/wiki/' + title
+      }
+    },
     content: { type: Sequelize.STRING, allowNull: false },
     status: { type: Sequelize.ENUM('open', 'closed'), defaultValue: 'open'},
-    date: { type: Sequelize.DATE }//,
-    // get() {
-    //   const title = this.getDataValue('urlTitle');
-    //   return '/wiki/' + title
-    // }
+    date: { type: Sequelize.DATE }
 });
 
 var User = db.define('user', {
