@@ -14,7 +14,7 @@ nunjucks.configure('views', { noCache: true });
 
 models.db.sync({force: true})
 .then(function () {
-    let server = app.listen(3000, function () {
+    app.listen(3000, function () {
         console.log('Server listening on port 3000');
     });
 })

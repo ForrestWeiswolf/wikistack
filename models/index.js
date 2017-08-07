@@ -6,7 +6,11 @@ var Page = db.define('page', {
     urlTitle: { type: Sequelize.STRING, allowNull: false },
     content: { type: Sequelize.STRING, allowNull: false },
     status: { type: Sequelize.ENUM('open', 'closed'), defaultValue: 'open'},
-    date: { type: Sequelize.DATE, defaultValue: Sequelize.NOW }
+    date: { type: Sequelize.DATE }//,
+    // get() {
+    //   const title = this.getDataValue('urlTitle');
+    //   return '/wiki/' + title
+    // }
 });
 
 var User = db.define('user', {
@@ -14,4 +18,8 @@ var User = db.define('user', {
     email: { type: Sequelize.STRING, allowNull: false, validate: { isEmail: true } }
 });
 
-module.exports = db
+module.exports =  {
+  db: db,
+  Page : Page,
+  User : User
+}
