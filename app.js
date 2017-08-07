@@ -2,6 +2,7 @@ const express = require('express');
 const volleyball = require('volleyball');
 const nunjucks = require('nunjucks');
 const bodyParser = require('body-parser')
+const models = require('./models');
 
 const routes = require('./routes')
 
@@ -11,9 +12,13 @@ app.set('view engine', 'html');
 app.engine('html', nunjucks.render);
 nunjucks.configure('views', { noCache: true });
 
-let server = app.listen('3000', function() {
-  console.log('Server listening on port 3000')
+models.db.sync({force: true})
+.then(function () {
+    let server = app.listen(3000, function () {
+        console.log('Server listening on port 3000');
+    });
 })
+.catch(console.error);
 
 app.use(volleyball);
 app.use(bodyParser.urlencoded());
